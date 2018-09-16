@@ -2,7 +2,9 @@ import React from 'react';
 import Newsmenu from './Newsmenu.jsx';
 import Articles from './Articles.jsx';
 import * as firebase from 'firebase';
+import styled from 'styled-components';
 import config from './config.js'
+import Header from './Header.jsx'
 import {arrayMove} from 'react-sortable-hoc';
 import '../public/android-chrome-192x192.png'
 import '../public/android-chrome-512x512.png'
@@ -15,6 +17,23 @@ import '../public/browserconfig.xml'
 import '../public/safari-pinned-tab.svg'
 import '../public/manifest.json'
 
+const Menu = styled.div`
+  margin: 0 auto;
+  padding-top: 10px;
+  
+  @media only screen and (min-width: 320px)  { 
+    width: 90%;
+    overflow: auto;
+    white-space: nowrap;
+    padding-bottom: 20px;
+  }
+  @media only screen and (min-width: 768px)  {   
+    width: 700px;
+  } 
+  @media only screen and (min-width: 1024px) { 
+    width: 700px; 
+  }
+`
 
 
 
@@ -57,6 +76,7 @@ class App extends React.Component {
     
     if (localStorage.getItem('newsOutLets') !== null){
       var dataLocal = JSON.parse(localStorage.getItem('newsOutLets'))
+      console.log(dataLocal)
       setTimeout(function(){
        this.setState({'thumbs': dataLocal.data})
       }.bind(this),50)
@@ -76,6 +96,7 @@ class App extends React.Component {
         })
         return data
       }).then(function(data){
+      console.log(data)  
       this.setState({'thumbs':data})
       localStorage.setItem('newsOutLets', JSON.stringify({data}))
       }.bind(this))
@@ -137,13 +158,14 @@ getFirebaseNews(){
     this.configureFirebase()
     this.getFirebase();
     this.getFirebaseNews();
-    this.setState({'thumbs':["http:\//www.selloceaapq.es/Images/loading2.gif"]});
+    this.setState({'thumbs':["http:\//gifimage.net/wp-content/uploads/2017/08/loading-gif-transparent-4.gif"]});
     this.setState({'axis': 'x'})
   }
 
   chooseNews(data){
     var outlet = data.outlet
     this.state.articles.forEach(function(x){
+      console.log(x)
       if(x.source === outlet){
         console.log('hit 1')
       this.setState({'outlet': x.articles})
@@ -153,8 +175,9 @@ getFirebaseNews(){
   }
   render() {
       return (
-        <div className="grid-1">
-        <div className="menu-item">
+        <div>
+        <Header/>
+        <Menu>
           <div>
             <Newsmenu 
             thumbs={this.state.thumbs} 
@@ -166,7 +189,7 @@ getFirebaseNews(){
             pressDelay={200}
             />
           </div>
-        </div>
+        </Menu>
         <Articles articles={this.state.outlet}/>
 
         </div>
