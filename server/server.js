@@ -9,7 +9,8 @@ const path = require('path');
 const port = process.env.PORT || 3000;
 
 let config;
-(port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
+config = require('../webpack.prod.js');
+//(port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
 const compiler = webpack(config);
 
 
