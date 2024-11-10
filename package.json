@@ -24,7 +24,7 @@
     "express": "^4.15.4",
     "firebase": "^4.6.1",
     "moment": "^2.19.1",
-    "nodemon": "^1.12.1",
+    "nodemon": "^2.0.3",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^15.6.1",
